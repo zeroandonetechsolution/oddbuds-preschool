@@ -498,7 +498,7 @@ footer {
     color: var(--white);
 }
 
-/* Flowting WhatsApp */
+/* Floating WhatsApp */
 .floating-whatsapp {
     position: fixed;
     bottom: 30px;
@@ -515,10 +515,33 @@ footer {
     box-shadow: 2px 2px 10px rgba(0,0,0,0.2);
     z-index: 1000;
     transition: transform 0.3s;
+    text-decoration: none;
 }
 
 .floating-whatsapp:hover {
     transform: scale(1.1);
+}
+
+.floating-whatsapp .tooltip-text {
+    position: absolute;
+    right: 75px;
+    background-color: #fff;
+    color: #25d366;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 600;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s, transform 0.3s;
+    transform: translateX(10px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.floating-whatsapp:hover .tooltip-text {
+    opacity: 1;
+    transform: translateX(0);
 }
 
 
