@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admission & Booking | OddBud Preschool</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;800&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        .booking-hero { min-height: auto; padding: 120px 5% 40px; text-align: center; }
+        .form-container { max-width: 800px; margin: 0 auto; padding: 40px; }
+        .form-group { margin-bottom: 20px; text-align: left; }
+        .form-group label { display: block; font-weight: 600; margin-bottom: 8px; color: var(--info); }
+        .form-control { width: 100%; padding: 12px 15px; border: 2px solid rgba(0,0,0,0.1); border-radius: 10px; font-family: var(--font-body); font-size: 1rem; transition: all 0.3s; background: rgba(255,255,255,0.8); }
+        .form-control:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 4px var(--primary-light); }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .booking-summary { background: rgba(255,255,255,0.9); padding: 20px; border-radius: 15px; margin-top: 30px; text-align: left; }
+        .summary-item { display: flex; justify-content: space-between; margin-bottom: 10px; border-bottom: 1px dashed #ccc; padding-bottom: 5px; }
+        .total { font-weight: bold; font-size: 1.2rem; color: var(--primary); border-top: 2px solid var(--info); padding-top: 10px; margin-top: 10px; }
+        
+        /* Payment Modes */
+        .payment-methods { display: flex; gap: 15px; margin-top: 10px; }
+        .payment-method { flex: 1; text-align: center; padding: 15px; border: 2px solid rgba(0,0,0,0.1); border-radius: 10px; cursor: pointer; transition: 0.3s; background: rgba(255,255,255,0.8); }
+        .payment-method.active { border-color: var(--secondary); background: var(--secondary-light); }
+        .payment-method i { font-size: 2rem; margin-bottom: 10px; color: var(--info); }
+        
+        .tab-step { display: none; }
+        .tab-step.active { display: block; animation: fadeIn 0.5s; }
+        
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .step-indicators { display: flex; justify-content: center; margin-bottom: 30px; gap: 20px; }
+        .step-dot { width: 40px; height: 40px; border-radius: 50%; background: var(--glass-border); display: flex; align-items: center; justify-content: center; font-weight: bold; color: var(--text-muted); }
+        .step-dot.active { background: var(--primary); color: var(--white); box-shadow: 0 0 15px var(--primary-light); }
+        
+        @media (max-width: 600px) { .form-row { grid-template-columns: 1fr; } .payment-methods { flex-direction: column; } }
+    </style>
+</head>
+<body>
+
+    <!-- Floating Background Shapes -->
+    <div class="bg-shape shape-1"></div>
+    <div class="bg-shape shape-2"></div>
+    <div class="bg-shape shape-3"></div>
+
+    <nav class="navbar glass">
+        <div class="logo">
+            <i class="fa-solid fa-shapes text-primary"></i>
+            <span>OddBud Preschool</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="booking.html" class="active">Admission</a></li>
+            <li><a href="admin.html" class="admin-link"><i class="fa-solid fa-user-shield"></i> Admin</a></li>
+        </ul>
+    </nav>
+
+    <header class="booking-hero">
+        <h1 class="section-title">Secure Your Child's Future</h1>
+        <p>Complete the admission process effortlessly with our simple booking form and secure payment gateway.</p>
+    </header>
+
+    <section class="section-padding pt-0">
+        <div class="container text-center">
+            
+            <div class="step-indicators">
+                <div class="step-dot active" id="dot-1">1</div>
+                <div class="step-dot" id="dot-2">2</div>
+                <div class="step-dot" id="dot-3">3</div>
+            </div>
+
+            <div class="glass-card form-container">
+                <form id="admissionForm">
+                    
+                    <!-- Step 1: Student Details -->
+                    <div class="tab-step active" id="step-1">
+                        <h3 class="mb-4 text-info"><i class="fa-solid fa-child"></i> Student Information</h3>
+                        <div class="form-row mt-4">
+                            <div class="form-group">
+                                <label>Child's Full Name *</label>
+                                <input type="text" id="childName" class="form-control" required placeholder="Enter child's name">
+                            </div>
+                            <div class="form-group">
+                                <label>Date of Birth *</label>
+                                <input type="date" id="dob" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Select Program *</label>
+                            <select id="program" class="form-control" required onchange="updateSummary()">
+                                <option value="" disabled selected>Select a program...</option>
+                                <option value="Toddler" data-price="40000">Toddler Group (1.5 - 2.5 Years) - ₹40,000/yr</option>
+                                <option value="Nursery" data-price="45000">Nursery (2.5 - 3.5 Years) - ₹45,000/yr</option>
+                                <option value="PreK" data-price="50000">Pre-K (3.5 - 5 Years) - ₹50,000/yr</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Medical Conditions / Allergies</label>
+                            <textarea id="medical" class="form-control" rows="2" placeholder="Any medical info we should know?"></textarea>
+                        </div>
+                        <div class="text-right mt-4" style="text-align: right;">
+                            <button type="button" class="btn btn-primary" onclick="nextStep(2)">Next: Parent Details <i class="fa-solid fa-arrow-right"></i></button>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Parent Details -->
+                    <div class="tab-step" id="step-2">
+                        <h3 class="mb-4 text-info"><i class="fa-solid fa-users"></i> Parent / Guardian Information</h3>
+                        <div class="form-row mt-4">
+                            <div class="form-group">
+                                <label>Parent's Full Name *</label>
+                                <input type="text" id="parentName" class="form-control" required placeholder="Enter your name">
+                            </div>
+                            <div class="form-group">
+                                <label>Contact Number *</label>
+                                <input type="tel" id="contactNum" class="form-control" required placeholder="+1 234 567 8900">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Email Address *</label>
+                            <input type="email" id="email" class="form-control" required placeholder="you@domain.com">
+                        </div>
+                        <div class="form-group">
+                            <label>Residential Address *</label>
+                            <textarea id="address" class="form-control" rows="3" required placeholder="Full address"></textarea>
+                        </div>
+                        <div class="mt-4" style="display: flex; justify-content: space-between;">
+                            <button type="button" class="btn btn-outline" onclick="nextStep(1)"><i class="fa-solid fa-arrow-left"></i> Back</button>
+                            <button type="button" class="btn btn-primary" onclick="nextStep(3)">Next: Payment <i class="fa-solid fa-arrow-right"></i></button>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Payment Details -->
+                    <div class="tab-step" id="step-3">
+                        <h3 class="mb-4 text-info"><i class="fa-solid fa-credit-card"></i> Booking & Payment</h3>
+                        
+                        <div class="booking-summary glass">
+                            <h4 class="mb-3">Admission Summary</h4>
+                            <div class="summary-item">
+                                <span>Child Name:</span>
+                                <strong id="sumChild">-</strong>
+                            </div>
+                            <div class="summary-item">
+                                <span>Program:</span>
+                                <strong id="sumProgram">-</strong>
+                            </div>
+                            <div class="summary-item">
+                                <span>Base Fee:</span>
+                                <span id="sumFee">₹0</span>
+                            </div>
+                            <div class="summary-item">
+                                <span>Registration & Material Fee:</span>
+                                <span>₹5,000</span>
+                            </div>
+                            <div class="summary-item total">
+                                <span>Total Amount to Pay:</span>
+                                <span id="sumTotal">₹0</span>
+                            </div>
+                        </div>
+
+                        <h4 class="mt-4 mb-2 text-info">Select Payment Method</h4>
+                        <div class="payment-methods">
+                            <div class="payment-method active" onclick="selectPayment(this, 'Card')">
+                                <i class="fa-regular fa-credit-card"></i><br>Credit/Debit Card
+                            </div>
+                            <div class="payment-method" onclick="selectPayment(this, 'Bank')">
+                                <i class="fa-solid fa-building-columns"></i><br>Bank Transfer
+                            </div>
+                            <div class="payment-method" onclick="selectPayment(this, 'Digital')">
+                                <i class="fa-brands fa-paypal"></i><br>PayPal / Digital
+                            </div>
+                        </div>
+
+                        <div class="mt-4 form-group">
+                            <label class="text-secondary"><i class="fa-solid fa-lock"></i> All payments are 100% secure and encrypted.</label>
+                        </div>
+
+                        <div class="mt-4" style="display: flex; justify-content: space-between;">
+                            <button type="button" class="btn btn-outline" onclick="nextStep(2)"><i class="fa-solid fa-arrow-left"></i> Back</button>
+                            <button type="submit" class="btn btn-success" style="background: var(--success); color: var(--text-main);"><i class="fa-solid fa-check"></i> Confirm & Pay</button>
+                        </div>
+                    </div>
+
+                </form>
+                
+                <div id="successMsg" style="display: none; padding: 40px 0; text-align: center;">
+                    <i class="fa-solid fa-circle-check text-success pulse" style="font-size: 5rem; margin-bottom: 20px; display: inline-block;"></i>
+                    <h2 class="text-info">Admission Confirmed!</h2>
+                    <p class="mt-4">Welcome to OddBud! We have received your details and payment. A confirmation email has been sent.<br>Your Reference ID: <strong id="refId"></strong></p>
+                    <a href="index.html" class="btn btn-primary mt-4">Return Home</a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Scripts -->
+    <script>
+        let selectedPayment = 'Card';
+        let totalAmount = 0;
+
+        function updateSummary() {
+            const programSelect = document.getElementById('program');
+            if(programSelect.value) {
+                const price = parseFloat(programSelect.options[programSelect.selectedIndex].getAttribute('data-price'));
+                totalAmount = price + 5000; // Registration fee
+                document.getElementById('sumFee').innerText = "₹" + price.toLocaleString('en-IN');
+                document.getElementById('sumTotal').innerText = "₹" + totalAmount.toLocaleString('en-IN');
+            }
+        }
+
+        function nextStep(step) {
+            // Very basic validation could go here
+            if(step == 3) {
+                // Populate summary
+                document.getElementById('sumChild').innerText = document.getElementById('childName').value || 'Not provided';
+                document.getElementById('sumProgram').innerText = document.getElementById('program').value || 'Not selected';
+            }
+            
+            document.querySelectorAll('.tab-step').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.step-dot').forEach(el => el.classList.remove('active'));
+            
+            document.getElementById('step-' + step).classList.add('active');
+            for(let i=1; i<=step; i++) {
+                document.getElementById('dot-' + i).classList.add('active');
+            }
+        }
+
+        function selectPayment(element, method) {
+            document.querySelectorAll('.payment-method').forEach(el => el.classList.remove('active'));
+            element.classList.add('active');
+            selectedPayment = method;
+        }
+
+        document.getElementById('admissionForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Collect Data
+            const admissionData = {
+                id: 'OB' + Math.floor(1000 + Math.random() * 9000),
+                date: new Date().toLocaleDateString(),
+                childName: document.getElementById('childName').value,
+                program: document.getElementById('program').value,
+                parentName: document.getElementById('parentName').value,
+                contact: document.getElementById('contactNum').value,
+                amount: totalAmount,
+                paymentStatus: 'Paid',
+                paymentMethod: selectedPayment,
+                status: 'Enrolled'
+            };
+
+            // Save to localStorage to simulate backend and show in admin panel
+            let admissions = JSON.parse(localStorage.getItem('oddbudAdmissions') || '[]');
+            admissions.push(admissionData);
+            localStorage.setItem('oddbudAdmissions', JSON.stringify(admissions));
+
+            // Show Success
+            document.getElementById('admissionForm').style.display = 'none';
+            document.getElementById('refId').innerText = admissionData.id;
+            document.getElementById('successMsg').style.display = 'block';
+            document.querySelector('.step-indicators').style.display = 'none';
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OddBud Preschool | Learning with Fun</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;800&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+    <!-- AOS Library for Animations -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Floating Background Shapes -->
+    <div class="bg-shape shape-1"></div>
+    <div class="bg-shape shape-2"></div>
+    <div class="bg-shape shape-3"></div>
+    
+    <!-- Navigation -->
+    <nav class="navbar glass">
+        <div class="logo">
+            <i class="fa-solid fa-shapes text-primary"></i>
+            <span>OddBud Preschool</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html" class="active">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#programs">Programs</a></li>
+            <li><a href="booking.html" class="btn btn-primary nav-btn">Enroll Now</a></li>
+            <li><a href="admin.html" class="admin-link"><i class="fa-solid fa-user-shield"></i> Admin</a></li>
+        </ul>
+        <div class="hamburger">
+            <i class="fa-solid fa-bars"></i>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero" id="home">
+        <div class="hero-content" data-aos="fade-right" data-aos-duration="1000">
+            <h1>Where Every Child's Dreams <span class="highlight">Blossom</span></h1>
+            <p>Welcome to OddBud Preschool, a magical place where curiosity meets creativity. Join us for a journey of joyful learning, premium facilities, and caring mentors.</p>
+            <div class="hero-buttons">
+                <a href="booking.html" class="btn btn-primary pulse">Start Admission</a>
+                <a href="#about" class="btn btn-outline">Explore More <i class="fa-solid fa-arrow-down"></i></a>
+            </div>
+            
+            <div class="stats glass-card mt-4">
+                <div class="stat-item">
+                    <h3 class="counter" data-target="500">0</h3>
+                    <p>Happy Kids</p>
+                </div>
+                <div class="stat-item">
+                    <h3 class="counter" data-target="50">0</h3>
+                    <p>Expert Teachers</p>
+                </div>
+                <div class="stat-item">
+                    <h3 class="counter" data-target="15">0</h3>
+                    <p>Creative Classes</p>
+                </div>
+            </div>
+        </div>
+        <div class="hero-image" data-aos="fade-left" data-aos-duration="1000">
+            <div class="image-wrapper glass-border">
+                <img src="assets/preschool_hero_1776578618949.png" alt="Happy Kids at OddBud">
+                <div class="floating-badge badge-1">
+                    <i class="fa-solid fa-star text-warning"></i> Premium Quality
+                </div>
+                <div class="floating-badge badge-2">
+                    <i class="fa-solid fa-heart text-danger"></i> Safe Environment
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- About Section -->
+    <section class="about section-padding" id="about">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-image" data-aos="zoom-in">
+                    <div class="image-wrapper glass-border blob-shape">
+                        <img src="assets/preschool_classroom_1776578731667.png" alt="OddBud Classroom">
+                    </div>
+                </div>
+                <div class="about-content" data-aos="fade-up">
+                    <h4 class="section-subtitle">About OddBud</h4>
+                    <h2 class="section-title">Nurturing Bright Minds with Love and Care</h2>
+                    <p>At OddBud Preschool, we believe in hands-on, activity-based learning. Our state-of-the-art classrooms and vibrant play areas are designed to spark imagination and encourage discovery.</p>
+                    <ul class="feature-list">
+                        <li><i class="fa-solid fa-check-circle text-primary"></i> Modern, colorful interiors</li>
+                        <li><i class="fa-solid fa-check-circle text-secondary"></i> Interactive learning tools</li>
+                        <li><i class="fa-solid fa-check-circle text-success"></i> Highly qualified educators</li>
+                        <li><i class="fa-solid fa-check-circle text-warning"></i> Focus on social & emotional growth</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Activities / Programs Section -->
+    <section class="programs section-padding bg-light" id="programs">
+        <div class="container text-center">
+            <h4 class="section-subtitle">Our Activities</h4>
+            <h2 class="section-title">Fun Filled Learning Programs</h2>
+            
+            <div class="program-grid">
+                <div class="program-card glass" data-aos="flip-left" data-aos-delay="100">
+                    <div class="icon-wrapper bg-primary-light">
+                        <i class="fa-solid fa-palette text-primary"></i>
+                    </div>
+                    <h3>Creative Arts</h3>
+                    <p>Drawing, painting, and crafting to unleash creativity and improve motor skills.</p>
+                </div>
+                <div class="program-card glass" data-aos="flip-left" data-aos-delay="200">
+                    <div class="icon-wrapper bg-secondary-light">
+                        <i class="fa-solid fa-music text-secondary"></i>
+                    </div>
+                    <h3>Music & Dance</h3>
+                    <p>Rhythmic activities that build confidence, expression, and coordination.</p>
+                </div>
+                <div class="program-card glass" data-aos="flip-left" data-aos-delay="300">
+                    <div class="icon-wrapper bg-success-light">
+                        <i class="fa-solid fa-flask text-success"></i>
+                    </div>
+                    <h3>Little Scientists</h3>
+                    <p>Safe, fun experiments that spark curiosity about the world around them.</p>
+                </div>
+                <div class="program-card glass" data-aos="flip-left" data-aos-delay="400">
+                    <div class="icon-wrapper bg-warning-light">
+                        <i class="fa-solid fa-futbol text-warning"></i>
+                    </div>
+                    <h3>Outdoor Play</h3>
+                    <p>Physical activities in our secure playground for healthy growth.</p>
+                </div>
+            </div>
+            
+            <div class="mt-5" data-aos="zoom-in">
+                <img src="assets/preschool_activity_1776578643421.png" alt="Kids Activities" class="activity-wide-img glass-border">
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="cta section-padding" data-aos="fade-up">
+        <div class="container cta-container glass-card">
+            <h2>Ready to Join the OddBud Family?</h2>
+            <p>Enrollments are now open for the upcoming academic year. Secure your child's future today with our seamless booking and payment system.</p>
+            <a href="booking.html" class="btn btn-lg btn-white">Proceed to Admission</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-bottom">
+            <p>&copy; 2026 OddBud Preschool. Crafted with care and excellence.</p>
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp -->
+    <a href="#" class="floating-whatsapp tooltip-container">
+        <i class="fa-brands fa-whatsapp"></i>
+        <span class="tooltip-text">Chat with us!</span>
+    </a>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

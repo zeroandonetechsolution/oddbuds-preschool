@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | OddBud Preschool</title>
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;800&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .admin-layout { display: flex; min-height: 100vh; background: var(--bg-main); }
+        .sidebar { width: 250px; background: var(--glass-bg); backdrop-filter: blur(10px); border-right: 1px solid var(--glass-border); padding: 30px 20px; display: flex; flex-direction: column; }
+        .sidebar .logo { font-size: 1.4rem; margin-bottom: 40px; }
+        .menu-items { list-style: none; display: flex; flex-direction: column; gap: 15px; }
+        .menu-items li a { text-decoration: none; color: var(--text-muted); font-weight: 600; padding: 12px 15px; border-radius: 12px; display: flex; align-items: center; gap: 10px; transition: 0.3s; }
+        .menu-items li a:hover, .menu-items li a.active { background: var(--primary); color: var(--white); box-shadow: 0 5px 15px rgba(255,107,107,0.3); }
+        
+        .main-content { flex: 1; padding: 40px; }
+        .dashboard-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; }
+        
+        .stat-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 25px; margin-bottom: 40px; }
+        .stat-card { padding: 25px; border-radius: 20px; display: flex; align-items: center; gap: 20px; }
+        .stat-icon { width: 60px; height: 60px; border-radius: 15px; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; }
+        
+        .table-container { background: var(--white); border-radius: 20px; padding: 25px; box-shadow: var(--glass-shadow); overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; text-align: left; }
+        th { padding: 15px; border-bottom: 2px solid var(--glass-border); color: var(--info); font-family: var(--font-heading); font-size: 1.1rem; }
+        td { padding: 15px; border-bottom: 1px solid #f0f0f0; font-weight: 600; color: var(--text-muted); }
+        tr:hover td { background: #fdfdfd; }
+        
+        .status { padding: 6px 12px; border-radius: 20px; font-size: 0.85rem; font-weight: 700; }
+        .status-paid { background: var(--success-light); color: #2e7d32; }
+        .status-enrolled { background: var(--primary-light); color: var(--primary); }
+        
+        .empty-state { text-align: center; padding: 40px; color: var(--text-muted); }
+        
+        @media (max-width: 768px) { .admin-layout { flex-direction: column; } .sidebar { width: 100%; border-right: none; border-bottom: 1px solid var(--glass-border); } }
+    </style>
+</head>
+<body>
+
+    <div class="admin-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <i class="fa-solid fa-shapes text-primary"></i> <span style="color: var(--info)">OddBud</span> Admin
+            </div>
+            <ul class="menu-items">
+                <li><a href="#" class="active"><i class="fa-solid fa-chart-pie"></i> Dashboard</a></li>
+                <li><a href="#"><i class="fa-solid fa-graduation-cap"></i> Students</a></li>
+                <li><a href="#"><i class="fa-solid fa-money-bill-wave"></i> Payments</a></li>
+                <li style="margin-top: auto;"><a href="index.html"><i class="fa-solid fa-arrow-left"></i> Back to Site</a></li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="dashboard-header">
+                <div>
+                    <h2 class="text-info">Dashboard Overview</h2>
+                    <p class="text-muted">Manage admissions, students, and payments.</p>
+                </div>
+                <div>
+                    <button class="btn btn-primary" onclick="clearData()"><i class="fa-solid fa-trash"></i> Reset Data</button>
+                    <button class="btn btn-outline"><i class="fa-solid fa-download"></i> Export</button>
+                </div>
+            </div>
+
+            <!-- Stats -->
+            <div class="stat-cards">
+                <div class="stat-card glass" style="border-bottom: 4px solid var(--primary);">
+                    <div class="stat-icon bg-primary-light text-primary"><i class="fa-solid fa-users"></i></div>
+                    <div>
+                        <h3 id="statStudents">0</h3>
+                        <p class="text-muted">Total Enrolled</p>
+                    </div>
+                </div>
+                <div class="stat-card glass" style="border-bottom: 4px solid var(--secondary);">
+                    <div class="stat-icon bg-secondary-light text-secondary"><i class="fa-solid fa-wallet"></i></div>
+                    <div>
+                        <h3 id="statRevenue">₹0</h3>
+                        <p class="text-muted">Total Revenue</p>
+                    </div>
+                </div>
+                <div class="stat-card glass" style="border-bottom: 4px solid var(--success);">
+                    <div class="stat-icon bg-success-light text-success"><i class="fa-solid fa-check-circle"></i></div>
+                    <div>
+                        <h3 id="statRecent">0</h3>
+                        <p class="text-muted">Recent Bookings</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Bookings Table -->
+            <div class="table-container text-info">
+                <h3 class="mb-4" style="margin-bottom: 20px;">Recent Admissions</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Ref ID</th>
+                            <th>Date</th>
+                            <th>Child Name</th>
+                            <th>Program</th>
+                            <th>Parent Contact</th>
+                            <th>Amount</th>
+                            <th>Payment Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="admissionsTableBody">
+                        <!-- Data populated by JS -->
+                    </tbody>
+                </table>
+                <div id="emptyState" class="empty-state" style="display: none;">
+                    <i class="fa-solid fa-folder-open mb-2" style="font-size: 3rem; margin-bottom: 10px;"></i>
+                    <p>No admissions found yet. Go to <a href="booking.html" class="text-primary">Admission Page</a> to add some.</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="admin.js"></script>
+</body>
+</html>
